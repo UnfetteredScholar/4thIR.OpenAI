@@ -61,6 +61,7 @@
     <DocumentationFile>bin\$(Configuration)\_4thIR.OpenAI.ChatGPT.Activities.Design.xml</DocumentationFile>
     <Title>Open AI Activities</Title>
     <PackageIcon>logo2.png</PackageIcon>
+    <RepositoryUrl>https://github.com/UnfetteredScholar/4thIR.OpenAI.git</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="UiPath.Workflow" Version="6.0.0-20220909-01" PrivateAssets="All" />

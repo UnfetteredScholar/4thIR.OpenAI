@@ -12,6 +12,5 @@ namespace _4thIR.OpenAI
         private const string API_KEY = "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";
         public OpenAIClient OpenAIClient { get; set; }
 
-
     }
 }
