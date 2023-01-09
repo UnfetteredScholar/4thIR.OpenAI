@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using _4thIR.OpenAI.ChatGPT.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
-using OpenAI;
+using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace _4thIR.OpenAI.ChatGPT.Activities
 {
@@ -36,12 +37,12 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_Model_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_Model_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public Engine Model { get; set; } = Engine.Default;
+        public Engine Model { get; set; } = Engine.Davinci;
 
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_Temperature_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_Temperature_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<double?> Temperature { get; set; } = null;
+        public InArgument<float?> Temperature { get; set; } = null;
 
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_MaximumLength_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_MaximumLength_Description))]
@@ -56,17 +57,17 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_TopP_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_TopP_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<double?> TopP { get; set; } = null;
+        public InArgument<float?> TopP { get; set; } = null;
 
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_FrequencyPenalty_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_FrequencyPenalty_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<double?> FrequencyPenalty { get; set; } = null;
+        public InArgument<float?> FrequencyPenalty { get; set; } = null;
 
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_PresencePenalty_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_PresencePenalty_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<double?> PresencePenalty { get; set; } = null;
+        public InArgument<float?> PresencePenalty { get; set; } = null;
 
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_NumberOfOutputs_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_NumberOfOutputs_Description))]
@@ -86,7 +87,7 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_CompletionResult_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_CompletionResult_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
-        public OutArgument<CompletionResult> CompletionResult { get; set; }
+        public OutArgument<CompletionCreateResponse> CompletionResult { get; set; }
 
         #endregion
 
@@ -127,33 +128,29 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
             };
         }
 
-        private async Task<CompletionResult> ExecuteWithTimeout(AsyncCodeActivityContext context, CancellationToken cancellationToken = default)
+        private async Task<CompletionCreateResponse> ExecuteWithTimeout(AsyncCodeActivityContext context, CancellationToken cancellationToken = default)
         {
-            var prompts = Prompts.Get(context);
-            var temperature = Temperature.Get(context);
-            var maximumLength = MaximumLength.Get(context);
-            var stopSequences = StopSequences.Get(context);
-            var topP = TopP.Get(context);
-            var frequencyPenalty = FrequencyPenalty.Get(context);
-            var presencePenalty = PresencePenalty.Get(context);
-            var numberOfOutputs = NumberOfOutputs.Get(context);
+       
+
             var logProbabilities = LogProbabilities.Get(context);
             var echo = Echo.Get(context);
 
-            CompletionRequest completionRequest = new CompletionRequest();
+            var result = await _chatGPTInterface.OpenAIClient.Completions.CreateCompletion(new CompletionCreateRequest()
+            {
+                PromptAsList= Prompts.Get(context),
+                Temperature= Temperature.Get(context),
+                MaxTokens = MaximumLength.Get(context),
+                StopAsList= StopSequences.Get(context),
+                TopP=TopP.Get(context),
+                FrequencyPenalty= FrequencyPenalty.Get(context),
+                PresencePenalty= PresencePenalty.Get(context),
+                BestOf=NumberOfOutputs.Get(context),
+                LogProbs=LogProbabilities.Get(context),
+                Echo=Echo.Get(context)
 
-            completionRequest.Prompts = prompts;
-            completionRequest.Temperature = temperature;
-            completionRequest.MaxTokens = maximumLength;
-            completionRequest.StopSequences = stopSequences;
-            completionRequest.TopP = topP;
-            completionRequest.FrequencyPenalty = frequencyPenalty;
-            completionRequest.PresencePenalty = presencePenalty;
-            completionRequest.NumChoicesPerPrompt = numberOfOutputs;
-            completionRequest.LogProbabilities = logProbabilities;
-            completionRequest.Echo= echo;
+            }, Model.ToString());
 
-            var result=await _chatGPTInterface.OpenAIClient.CompletionEndpoint.CreateCompletionAsync(completionRequest,Model);
+           
 
             return result;
         }

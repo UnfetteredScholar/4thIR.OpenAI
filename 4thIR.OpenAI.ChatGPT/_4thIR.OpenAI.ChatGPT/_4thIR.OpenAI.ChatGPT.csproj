@@ -29,6 +29,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OpenAI-DotNet" Version="3.0.1" />
+    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.6.3" />
   </ItemGroup>
 </Project>

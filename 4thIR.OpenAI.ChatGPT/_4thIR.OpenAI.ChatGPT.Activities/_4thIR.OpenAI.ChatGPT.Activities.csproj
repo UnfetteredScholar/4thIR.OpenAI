@@ -10,7 +10,7 @@
     <DocumentationFile>bin\$(Configuration)\_4thIR.OpenAI.ChatGPT.Activities.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="OpenAI-DotNet" Version="3.0.1" />
+    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.6.3" />
     <PackageReference Include="System.Activities.Metadata" Version="6.0.0-*" PrivateAssets="All" />
     <PackageReference Include="UiPath.Workflow.Runtime" Version="6.0.0-20220909-01" PrivateAssets="All" />
   </ItemGroup>
