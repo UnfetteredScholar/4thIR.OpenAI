@@ -149,10 +149,6 @@
     <value>Authentication</value>
     <comment>category</comment>
   </data>
-  <data name="Common_Category" xml:space="preserve">
-    <value>Common</value>
-    <comment>category</comment>
-  </data>
   <data name="Input_Category" xml:space="preserve">
     <value>Input</value>
     <comment>category</comment>
@@ -197,6 +193,158 @@
     <value>The prompts to be processed.</value>
     <comment>property description</comment>
   </data>
+  <data name="GenerateCompletion_Model_DisplayName" xml:space="preserve">
+    <value>Model</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_Model_Description" xml:space="preserve">
+    <value>The model used to generate the completion.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_Temperature_DisplayName" xml:space="preserve">
+    <value>Temperature</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_Temperature_Description" xml:space="preserve">
+    <value>Controls randomness. Lowering results in less random completions as the value approaches 0.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_MaximumLength_DisplayName" xml:space="preserve">
+    <value>Maximum Length</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_MaximumLength_Description" xml:space="preserve">
+    <value>The maximum number of tokens to generate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_StopSequences_DisplayName" xml:space="preserve">
+    <value>Stop Sequences</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_StopSequences_Description" xml:space="preserve">
+    <value>The stop sequence where the API will stop generating further tokens. The returned text will not contain the stop sequence.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_TopP_DisplayName" xml:space="preserve">
+    <value>Top P</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_TopP_Description" xml:space="preserve">
+    <value>Controls diversity via nucleus sampling.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_FrequencyPenalty_DisplayName" xml:space="preserve">
+    <value>Frequency Penalty</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_FrequencyPenalty_Description" xml:space="preserve">
+    <value>The scale of the penalty for how often a token is used.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_PresencePenalty_DisplayName" xml:space="preserve">
+    <value>Presence Penalty</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_PresencePenalty_Description" xml:space="preserve">
+    <value>The scale of the penalty applied if a token is already present at all. </value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_NumberOfOutputs_DisplayName" xml:space="preserve">
+    <value>Number of Outputs</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_NumberOfOutputs_Description" xml:space="preserve">
+    <value>How many different choices to request for each prompt.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_LogProbabilities_DisplayName" xml:space="preserve">
+    <value>Log Probabilities</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_LogProbabilities_Description" xml:space="preserve">
+    <value>Include the log probabilities on the most likely tokens.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_Echo_DisplayName" xml:space="preserve">
+    <value>Echo</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_Echo_Description" xml:space="preserve">
+    <value>Echo back the prompt in addition to the completion.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GenerateCompletion_CompletionResult_DisplayName" xml:space="preserve">
+    <value>Completion Result</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_CompletionResult_Description" xml:space="preserve">
+    <value>The resulting completion.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Authentication_Category" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>category</comment>
+  </data>
+  <data name="Common_Category" xml:space="preserve">
+    <value>Common</value>
+    <comment>category</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ValidationScope_Error" xml:space="preserve">
+    <value>Cannot be used outside of a {0}.</value>
+    <comment>error message; {0} is a container activity (e.g. a scope)</comment>
+  </data>
+  <data name="ValidationValue_Error" xml:space="preserve">
+    <value>Please provide a value for {0}.</value>
+    <comment>error message; {0} is the name of a missing property</comment>
+  </data>
+  <data name="ValidationExclusiveProperties_Error" xml:space="preserve">
+    <value>Please provide a value either for {0} or {1}, but not both.</value>
+    <comment>error message; {0} &amp; {1} are mutually exclusive activities</comment>
+  </data>
+  <data name="ValidationOverloadGroup_Error" xml:space="preserve">
+    <value>Please provide values for both {0} and {1}.</value>
+    <comment>error message; {0} &amp; {1} are complementary properties</comment>
+  </data>
+  <data name="GenerateCompletion_DisplayName" xml:space="preserve">
+    <value>Generate Completion</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GenerateCompletion_Description" xml:space="preserve">
+    <value>Generates completions based on the prompt(s) provided. Supports: summarization, translation, grammar correction, question answering, chatbots, composing emails, etc.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="GenerateCompletion_APIKey_DisplayName" xml:space="preserve">
+    <value>API Key</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_APIKey_Description" xml:space="preserve">
+    <value>The API Key.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="GenerateCompletion_Prompts_DisplayName" xml:space="preserve">
+    <value>Prompts</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GenerateCompletion_Prompts_Description" xml:space="preserve">
+    <value>The prompts to be processed.</value>
+    <comment>property description</comment>
+  </data>
   <data name="Input_Category" xml:space="preserve">
     <value>Input</value>
     <comment>category</comment>
@@ -218,18 +366,18 @@
     <comment>property name</comment>
   </data>
   <data name="GenerateCompletion_Temperature_Description" xml:space="preserve">
-    <value>Controls randomness. Lowering results in less random completions as the value approaches 0.</value>
+    <value>Controls randomness. Lowering results in less random completions as the value approaches 0. (0-1)</value>
     <comment>property description</comment>
   </data>
   <data name="Input_Category" xml:space="preserve">
     <value>Input</value>
     <comment>category</comment>
   </data>
-  <data name="GenerateCompletion_MaximumLength_DisplayName" xml:space="preserve">
-    <value>Maximum Length</value>
+  <data name="GenerateCompletion_MaximumTokens_DisplayName" xml:space="preserve">
+    <value>Maximum Tokens</value>
     <comment>property name</comment>
   </data>
-  <data name="GenerateCompletion_MaximumLength_Description" xml:space="preserve">
+  <data name="GenerateCompletion_MaximumTokens_Description" xml:space="preserve">
     <value>The maximum number of tokens to generate.</value>
     <comment>property description</comment>
   </data>
@@ -278,7 +426,7 @@
     <comment>property name</comment>
   </data>
   <data name="GenerateCompletion_PresencePenalty_Description" xml:space="preserve">
-    <value>The scale of the penalty applied if a token is already present at all. </value>
+    <value>The scale of the penalty applied if a token is already present at all.</value>
     <comment>property description</comment>
   </data>
   <data name="Input_Category" xml:space="preserve">

@@ -3,9 +3,9 @@ using System.Activities;
 using System.Threading;
 using System.Threading.Tasks;
 using _4thIR.OpenAI.ChatGPT.Activities.Properties;
+using OpenAI;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
-using OpenAI;
 using OpenAI.Models;
 
 namespace _4thIR.OpenAI.ChatGPT.Activities
@@ -29,6 +29,11 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
         [LocalizedDescription(nameof(Resources.Timeout_Description))]
         public InArgument<int> TimeoutMS { get; set; } = 60000;
 
+        [LocalizedDisplayName(nameof(Resources.GenerateCompletion_APIKey_DisplayName))]
+        [LocalizedDescription(nameof(Resources.GenerateCompletion_APIKey_Description))]
+        [LocalizedCategory(nameof(Resources.Input_Category))]
+        public InArgument<string> APIKey { get; set; } = null;
+
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_Prompts_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_Prompts_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
@@ -44,10 +49,10 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
         [LocalizedCategory(nameof(Resources.Input_Category))]
         public InArgument<double?> Temperature { get; set; } = null;
 
-        [LocalizedDisplayName(nameof(Resources.GenerateCompletion_MaximumLength_DisplayName))]
-        [LocalizedDescription(nameof(Resources.GenerateCompletion_MaximumLength_Description))]
+        [LocalizedDisplayName(nameof(Resources.GenerateCompletion_MaximumTokens_DisplayName))]
+        [LocalizedDescription(nameof(Resources.GenerateCompletion_MaximumTokens_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<int?> MaximumLength { get; set; } = null;
+        public InArgument<int?> MaximumTokens { get; set; } = null;
 
         [LocalizedDisplayName(nameof(Resources.GenerateCompletion_StopSequences_DisplayName))]
         [LocalizedDescription(nameof(Resources.GenerateCompletion_StopSequences_Description))]
@@ -91,9 +96,6 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
 
         #endregion
 
-        private readonly ChatGPTInterface _chatGPTInterface = new ChatGPTInterface();
-
-
         #region Constructors
 
         public GenerateCompletion()
@@ -108,6 +110,7 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             if (Prompts == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Prompts)));
+            if (APIKey == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(APIKey)));
 
             base.CacheMetadata(metadata);
         }
@@ -116,7 +119,7 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
         {
             // Inputs
             var timeout = TimeoutMS.Get(context);
-            
+
 
             // Set a timeout on the execution
             var task = ExecuteWithTimeout(context, cancellationToken);
@@ -130,9 +133,12 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
 
         private async Task<CompletionResult> ExecuteWithTimeout(AsyncCodeActivityContext context, CancellationToken cancellationToken = default)
         {
+
+            ChatGPTInterface chatGPTInterface = new ChatGPTInterface(APIKey.Get(context));
+
             var prompts = Prompts.Get(context);
             var temperature = Temperature.Get(context);
-            var maximumLength = MaximumLength.Get(context);
+            var maximumLength = MaximumTokens.Get(context);
             var stopSequences = StopSequences.Get(context);
             var topP = TopP.Get(context);
             var frequencyPenalty = FrequencyPenalty.Get(context);
@@ -152,9 +158,9 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
             completionRequest.PresencePenalty = presencePenalty;
             completionRequest.NumChoicesPerPrompt = numberOfOutputs;
             completionRequest.LogProbabilities = logProbabilities;
-            completionRequest.Echo= echo;
-            
-            switch(Engine)
+            completionRequest.Echo = echo;
+
+            switch (Engine)
             {
                 case Engine.Ada:
                     completionRequest.Model = Model.Ada;
@@ -173,8 +179,7 @@ namespace _4thIR.OpenAI.ChatGPT.Activities
                     break;
             }
 
-
-            var result=await _chatGPTInterface.OpenAIClient.CompletionsEndpoint.CreateCompletionAsync(completionRequest);
+            var result = await chatGPTInterface.OpenAIClient.CompletionsEndpoint.CreateCompletionAsync(completionRequest);
 
             return result;
         }

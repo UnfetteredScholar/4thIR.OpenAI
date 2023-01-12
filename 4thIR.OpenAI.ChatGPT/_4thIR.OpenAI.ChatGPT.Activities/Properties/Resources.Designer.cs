@@ -106,6 +106,24 @@ namespace _4thIR.OpenAI.ChatGPT.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The API Key..
+        /// </summary>
+        public static string GenerateCompletion_APIKey_Description {
+            get {
+                return ResourceManager.GetString("GenerateCompletion_APIKey_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API Key.
+        /// </summary>
+        public static string GenerateCompletion_APIKey_DisplayName {
+            get {
+                return ResourceManager.GetString("GenerateCompletion_APIKey_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The resulting completion..
         /// </summary>
         public static string GenerateCompletion_CompletionResult_Description {
@@ -214,6 +232,24 @@ namespace _4thIR.OpenAI.ChatGPT.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The maximum number of tokens to generate..
+        /// </summary>
+        public static string GenerateCompletion_MaximumTokens_Description {
+            get {
+                return ResourceManager.GetString("GenerateCompletion_MaximumTokens_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum Tokens.
+        /// </summary>
+        public static string GenerateCompletion_MaximumTokens_DisplayName {
+            get {
+                return ResourceManager.GetString("GenerateCompletion_MaximumTokens_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The model used to generate the completion..
         /// </summary>
         public static string GenerateCompletion_Model_Description {
@@ -250,7 +286,7 @@ namespace _4thIR.OpenAI.ChatGPT.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The scale of the penalty applied if a token is already present at all. .
+        ///   Looks up a localized string similar to The scale of the penalty applied if a token is already present at all..
         /// </summary>
         public static string GenerateCompletion_PresencePenalty_Description {
             get {
@@ -304,7 +340,7 @@ namespace _4thIR.OpenAI.ChatGPT.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls randomness. Lowering results in less random completions as the value approaches 0..
+        ///   Looks up a localized string similar to Controls randomness. Lowering results in less random completions as the value approaches 0. (0-1).
         /// </summary>
         public static string GenerateCompletion_Temperature_Description {
             get {
